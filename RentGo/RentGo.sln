@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{F0C497EB-5E80-4529-A22F-22CCB485BE68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A1548835-5EE6-45AC-8FC8-3D3884E6D3A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{917D1F1F-94D8-4F74-B9C3-57BE8726C12C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Api", "RentGo.Api\RentGo.Api.csproj", "{81AB0EC5-0CE3-43EC-900A-4026F3D25F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentGo.Infrastructure", "RentGoInfrastructure\RentGo.Infrastructure.csproj", "{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81AB0EC5-0CE3-43EC-900A-4026F3D25F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81AB0EC5-0CE3-43EC-900A-4026F3D25F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81AB0EC5-0CE3-43EC-900A-4026F3D25F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81AB0EC5-0CE3-43EC-900A-4026F3D25F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81AB0EC5-0CE3-43EC-900A-4026F3D25F92} = {F0C497EB-5E80-4529-A22F-22CCB485BE68}
+		{EFD10DFE-519F-4F1A-A28E-3D5E7AC28BBF} = {A1548835-5EE6-45AC-8FC8-3D3884E6D3A0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {866485D6-0417-4E43-86F3-F671BE31F4AC}
+	EndGlobalSection
+EndGlobal
