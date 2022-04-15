@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

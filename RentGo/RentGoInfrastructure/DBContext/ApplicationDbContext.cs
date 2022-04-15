@@ -11,6 +11,7 @@ namespace RentGoInfrastructure.DBContext
 
         }
 
+        public DbSet<Otp> Otps { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
