@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RentGo.Application\RentGo.Application.csproj" />
+    <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
     <ProjectReference Include="..\RentGoInfrastructure\RentGo.Infrastructure.csproj" />
   </ItemGroup>
 

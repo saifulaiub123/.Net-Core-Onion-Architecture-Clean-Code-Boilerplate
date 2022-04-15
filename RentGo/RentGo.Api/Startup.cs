@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
 using System.Text;
+using RentGo.Application.Constant;
+using RentGo.Application.Settings;
 using RentGo.Infrastructure.DBModel;
 
 namespace Api
@@ -23,7 +25,10 @@ namespace Api
             services.AddControllers();
 
             // For Entity Framework  
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString(ConfigOptions.DbConnName),
+                            options => options.EnableRetryOnFailure())
+                );
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -31,6 +36,8 @@ namespace Api
                 .AddDefaultTokenProviders();
 
             // Adding Authentication  
+
+            var jwtSettings = Configuration.GetSection(ConfigOptions.JWT).Get<JWTSettings>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -47,9 +54,9 @@ namespace Api
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = Configuration["JWT:ValidAudience"],
-                    ValidIssuer = Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                    ValidAudience = jwtSettings.ValidAudience,
+                    ValidIssuer = jwtSettings.ValidIssuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
             });
             services.AddEndpointsApiExplorer();
