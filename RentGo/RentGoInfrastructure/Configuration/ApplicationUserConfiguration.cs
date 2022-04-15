@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentGo.Infrastructure.DBModel;
+using RentGo.Domain.DBModel;
 
 namespace RentGo.Infrastructure.Configuration
 {

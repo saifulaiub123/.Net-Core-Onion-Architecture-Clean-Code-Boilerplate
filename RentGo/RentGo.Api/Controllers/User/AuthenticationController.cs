@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentGo.Application.Response;
+using RentGo.Domain.DBModel;
 using RentGo.Domain.Model;
-using RentGo.Infrastructure.DBModel;
 
 namespace RentGo.Api.Controllers.User
 {

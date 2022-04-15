@@ -1,6 +1,6 @@
 ﻿using RentGo.Domain.Model;
 
-namespace RentGo.Infrastructure.DBModel
+namespace RentGo.Domain.DBModel
 {
     public class Otp : BaseIdentityModel<int>
     {

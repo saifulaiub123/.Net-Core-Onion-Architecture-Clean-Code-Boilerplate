@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RentGo.Infrastructure.DBModel
+namespace RentGo.Domain.DBModel
 {
     public class ApplicationUser : IdentityUser
     {

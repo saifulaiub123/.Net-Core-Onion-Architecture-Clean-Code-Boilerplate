@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
@@ -18,8 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Framework\RentGo.Framework.csproj" />
     <ProjectReference Include="..\RentGo.Application\RentGo.Application.csproj" />
     <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
+    <ProjectReference Include="..\RentGo.Service\RentGo.Service.csproj" />
     <ProjectReference Include="..\RentGoInfrastructure\RentGo.Infrastructure.csproj" />
   </ItemGroup>
 

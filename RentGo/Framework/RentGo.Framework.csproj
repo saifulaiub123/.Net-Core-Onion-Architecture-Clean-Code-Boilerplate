@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constant\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
+    <ProjectReference Include="..\RentGo.Application\RentGo.Application.csproj" />
   </ItemGroup>
 
 </Project>

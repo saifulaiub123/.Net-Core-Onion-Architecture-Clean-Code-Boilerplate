@@ -1,4 +1,4 @@
-﻿namespace RentGo.Application.Constant
+﻿namespace RentGo.Domain.Constant
 {
     public class ConfigOptions
     {

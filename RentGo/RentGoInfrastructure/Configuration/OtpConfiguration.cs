@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentGo.Application.Constant;
-using RentGo.Infrastructure.DBModel;
+using RentGo.Domain.Constant;
+using RentGo.Domain.DBModel;
 
 namespace RentGo.Infrastructure.Configuration
 {

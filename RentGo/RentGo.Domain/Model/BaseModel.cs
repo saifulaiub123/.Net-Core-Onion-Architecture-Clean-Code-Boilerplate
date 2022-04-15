@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using RentGo.Domain.Constant;
 using RentGo.Domain.IEntity;
-using RentGo.Application.Constant;
 
 namespace RentGo.Domain.Model
 {

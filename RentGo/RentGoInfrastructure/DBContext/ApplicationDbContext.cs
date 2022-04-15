@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RentGo.Infrastructure.DBModel;
+using RentGo.Domain.DBModel;
 
 namespace RentGoInfrastructure.DBContext
 {

@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Domain", "RentGo.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentGo.Service", "RentGo.Service\RentGo.Service.csproj", "{E40BCB73-D789-40B2-BD28-DB8C309FEA63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentGo.Framework", "Framework\RentGo.Framework.csproj", "{85D376FD-A16B-4299-8BF9-17309BE9D825}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{E40BCB73-D789-40B2-BD28-DB8C309FEA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E40BCB73-D789-40B2-BD28-DB8C309FEA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E40BCB73-D789-40B2-BD28-DB8C309FEA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D376FD-A16B-4299-8BF9-17309BE9D825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D376FD-A16B-4299-8BF9-17309BE9D825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D376FD-A16B-4299-8BF9-17309BE9D825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D376FD-A16B-4299-8BF9-17309BE9D825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{2B6628B8-92EB-4A58-AD4B-01981F437AEA} = {917D1F1F-94D8-4F74-B9C3-57BE8726C12C}
 		{2D411320-9726-46F0-A785-C73AFC2626DE} = {917D1F1F-94D8-4F74-B9C3-57BE8726C12C}
 		{E40BCB73-D789-40B2-BD28-DB8C309FEA63} = {917D1F1F-94D8-4F74-B9C3-57BE8726C12C}
+		{85D376FD-A16B-4299-8BF9-17309BE9D825} = {917D1F1F-94D8-4F74-B9C3-57BE8726C12C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {866485D6-0417-4E43-86F3-F671BE31F4AC}

@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
 using System.Text;
-using RentGo.Application.Constant;
+using RentGo.Api.Dependency;
 using RentGo.Application.Settings;
-using RentGo.Infrastructure.DBModel;
+using RentGo.Domain.Constant;
+using RentGo.Domain.DBModel;
 
 namespace Api
 {
@@ -34,7 +35,9 @@ namespace Api
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
+            services.AddServices();
+            services.AddRepositories();
+            services.AddAutoMapper(typeof(ApplicationDbContext));
             // Adding Authentication  
 
             var jwtSettings = Configuration.GetSection(ConfigOptions.JWT).Get<JWTSettings>();
