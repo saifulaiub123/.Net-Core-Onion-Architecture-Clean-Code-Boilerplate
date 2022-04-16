@@ -26,12 +26,19 @@ namespace RentGo.Api.Controllers.User
         {
             var userExists = await userManager.FindByNameAsync(model.MobileNumber);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            {
+                userExists.DeviceToken = model.DeviceToken;
+                await userManager.UpdateAsync(userExists);
+                return StatusCode(StatusCodes.Status200OK, new Response { Status = "Ok", Message = "Successfully Login" });
+            }
+                //return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.MobileNumber
+                UserName = model.MobileNumber,
+                DeviceToken = model.DeviceToken,
+                Status = 1
             };
             var result = await userManager.CreateAsync(user);
             if (!result.Succeeded)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentGoInfrastructure.DBContext;
 
@@ -11,9 +12,10 @@ using RentGoInfrastructure.DBContext;
 namespace RentGo.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220416110656_remove_identity_column")]
+    partial class remove_identity_column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,9 +227,6 @@ namespace RentGo.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("Status")
-                        .IsUnique();
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -268,18 +267,10 @@ namespace RentGo.Infrastructure.Migrations
 
             modelBuilder.Entity("RentGo.Domain.DBModel.UserStatus", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
 
                     b.ToTable("UserStatus");
                 });
@@ -332,23 +323,6 @@ namespace RentGo.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RentGo.Domain.DBModel.ApplicationUser", b =>
-                {
-                    b.HasOne("RentGo.Domain.DBModel.UserStatus", "UserStatus")
-                        .WithOne("User")
-                        .HasForeignKey("RentGo.Domain.DBModel.ApplicationUser", "Status")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserStatus");
-                });
-
-            modelBuilder.Entity("RentGo.Domain.DBModel.UserStatus", b =>
-                {
-                    b.Navigation("User")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

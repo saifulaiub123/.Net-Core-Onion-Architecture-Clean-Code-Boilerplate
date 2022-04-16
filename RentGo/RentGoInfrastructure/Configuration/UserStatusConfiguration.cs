@@ -8,6 +8,7 @@ namespace RentGo.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserStatus> builder)
         {
+            builder.Property(x => x.Id).ValueGeneratedNever();
             builder.Property(x => x.Name)
                 .HasMaxLength(20)
                 .IsRequired();
