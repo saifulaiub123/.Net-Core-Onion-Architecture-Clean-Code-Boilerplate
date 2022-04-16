@@ -22,8 +22,4 @@
     <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DBModel\" />
-  </ItemGroup>
-
 </Project>

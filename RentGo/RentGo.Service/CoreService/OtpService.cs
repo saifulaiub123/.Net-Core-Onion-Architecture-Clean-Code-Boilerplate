@@ -9,17 +9,14 @@ namespace RentGo.Service.CoreService
     {
         private readonly ISmsHelper _smsHelper;
         private readonly IOtpRepository _otpRepository;
-        private readonly IMapper _mapper;
 
-    public OtpService(
+        public OtpService(
         ISmsHelper smsHelper,
-        IOtpRepository otpRepository,
-        IMapper mapper
+        IOtpRepository otpRepository
         )
         {
             _smsHelper  = smsHelper;
             _otpRepository = otpRepository;
-            _mapper = mapper;
         }
         public async Task SendOtp(string mobieNumber)
         {
