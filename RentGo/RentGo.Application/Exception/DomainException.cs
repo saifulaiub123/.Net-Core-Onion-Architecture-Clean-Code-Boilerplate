@@ -1,5 +1,4 @@
-﻿using System;
-using RentGo.Domain.Constant;
+﻿using RentGo.Domain.Constant;
 
 namespace RentGo.Application.Exception
 {

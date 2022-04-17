@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using RentGo.Application.IService;
-using RentGo.Domain.DBModel;
+﻿using RentGo.Application.IService;
 using RentGoInfrastructure.DBContext;
 
 namespace RentGo.Infrastructure.Repository

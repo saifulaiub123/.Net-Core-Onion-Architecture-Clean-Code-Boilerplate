@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
 using System.Text;
-using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
 using RentGo.Application.Settings;
 using RentGo.Domain.Constant;
@@ -38,6 +37,7 @@ namespace Api
                 .AddDefaultTokenProviders();
             services.AddServices();
             services.AddRepositories();
+            services.ApplicationServices();
             services.AddAutoMapper(typeof(ApplicationDbContext));
             // Adding Authentication  
 
@@ -63,7 +63,6 @@ namespace Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
             });
-            services.AddSingleton<JWTExtensions>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
