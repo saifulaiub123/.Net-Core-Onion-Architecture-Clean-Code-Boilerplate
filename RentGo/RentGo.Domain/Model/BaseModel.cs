@@ -6,6 +6,10 @@ namespace RentGo.Domain.Model
 {
     public class BaseModel<TId> : IBaseEntity<TId>, IAuditable
     {
+        public BaseModel()
+        {
+            DateCreated = DateTime.Now;
+        }
         public TId Id { get; set; }
         [Column(TypeName = DbDataType.DateTime)]
         public DateTime DateCreated { get; set; }

@@ -2,7 +2,7 @@
 
 namespace RentGo.Domain.DBModel
 {
-    public class Otp : BaseIdentityModel<int>
+    public class Otp : BaseModel<int>
     {
         public string MobileNumber { get; set; }
         public string VerificationCode { get; set; }

@@ -239,6 +239,9 @@ namespace RentGo.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime");
 
@@ -249,10 +252,16 @@ namespace RentGo.Infrastructure.Migrations
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("LastUpdated")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("MobileNumber")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.Property<string>("VerificationCode")
                         .IsRequired()

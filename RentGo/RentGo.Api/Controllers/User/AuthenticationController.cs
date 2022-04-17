@@ -29,35 +29,47 @@ namespace RentGo.Api.Controllers.User
         }
 
         [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Login([FromBody] RegisterModel model)
         {
-            var otpResponse = await _otpService.VerifyOtp(new VerifyOtp(model.MobileNumber, model.Code));
-
-            if(otpResponse.Status != OtpResponseEnum.OK)
-                return StatusCode(StatusCodes.Status500InternalServerError, otpResponse);
-
-            var userExists = await _userManager.FindByNameAsync(model.MobileNumber);
-            if (userExists == null)
+            try
             {
-                var user = new ApplicationUser()
+                var otpResponse = await _otpService.VerifyOtp(new VerifyOtp(model.MobileNumber, model.Code));
+
+                if(otpResponse.Status != OtpResponseEnum.OK)
+                    return StatusCode(StatusCodes.Status500InternalServerError, otpResponse);
+
+                var userExists = await _userManager.FindByNameAsync(model.MobileNumber);
+                if (userExists == null)
                 {
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.MobileNumber,
-                    DeviceToken = model.DeviceToken,
-                    Status = (int)UserStatusEnum.Active
-                };
-                var result = await _userManager.CreateAsync(user);
-                if (!result.Succeeded)
-                    return StatusCode(StatusCodes.Status500InternalServerError, new Response(ResponseStatus.FAILED, Message.USER_REGISTRATION_FAILED));
+                    var user = new ApplicationUser()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        UserName = model.MobileNumber,
+                        DeviceToken = model.DeviceToken,
+                        Status = (int)UserStatusEnum.Active
+                    };
+                    var result = await _userManager.CreateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, RoleConst.USER);
+                    }
+                    else
+                    {
+                        return StatusCode(StatusCodes.Status500InternalServerError, new Response(ResponseStatus.FAILED, Message.USER_REGISTRATION_FAILED));
+                    }
+                }
+                else
+                {
+                    userExists.DeviceToken = model.DeviceToken;
+                    await _userManager.UpdateAsync(userExists);
+                }
+                return Ok(new Response(ResponseStatus.OK, Message.USER_REGISTRATION_SUCCESS));
             }
-            else
+            catch (Exception e)
             {
-                userExists.DeviceToken = model.DeviceToken;
-                await _userManager.UpdateAsync(userExists);
+                throw;
             }
-            
-            return Ok(new Response(ResponseStatus.OK, Message.USER_REGISTRATION_SUCCESS));
         }
 
     }

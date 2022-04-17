@@ -29,7 +29,7 @@ namespace RentGo.Service.CoreService
                 {
                     MobileNumber = mobieNumber,
                     VerificationCode = Convert.ToString(await _smsHelper.SendSms(mobieNumber)),
-                    ExpiredAt = DateTime.Now.AddMinutes(5)
+                    ExpiredAt = DateTime.Now.AddMinutes(10)
                 };
                 await _otpRepository.Insert(otpObj);
                 await _otpRepository.SaveAsync();

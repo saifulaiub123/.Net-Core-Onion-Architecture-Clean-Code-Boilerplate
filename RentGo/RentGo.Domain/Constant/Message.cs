@@ -12,5 +12,11 @@
         public static string OTP_VERIFIED = "OTP verified";
         public static string OTP_EXPIRED = "OTP expired";
         public static string OTP_VERIFICATION_FAILED = "Failed to verify OTP";
+
+
+
+        //Throw Exception
+        public static string RecordNotFound = "Record not found";
+
     }
 }
