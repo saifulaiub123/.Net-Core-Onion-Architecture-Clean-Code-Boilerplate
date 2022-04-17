@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
-using System.Text;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
-using Newtonsoft.Json;
+using Microsoft.OpenApi.Models;
 using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
 using RentGo.Api.Middleware;
 using RentGo.Application.Helper;
-using RentGo.Application.Settings;
 using RentGo.Domain.Constant;
 using RentGo.Domain.DBModel;
 
@@ -55,32 +51,6 @@ namespace Api
             services.TokenAuthentication(Configuration);
 
             services.AddAutoMapper(typeof(ApplicationDbContext));
-            // Adding Authentication  
-
-            //var jwtSettings = Configuration.GetSection(ConfigOptions.JWT).Get<JWTSettings>();
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-
-            //// Adding Jwt Bearer  
-            //.AddJwtBearer(options =>
-            //{
-            //    options.SaveToken = true;
-            //    options.RequireHttpsMetadata = false;
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidAudience = jwtSettings.ValidAudience,
-            //        ValidIssuer = jwtSettings.ValidIssuer,
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
-            //    };
-            //});
-
-
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -93,7 +63,29 @@ namespace Api
                     });
             });
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x =>
+            {
+                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                });
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.  

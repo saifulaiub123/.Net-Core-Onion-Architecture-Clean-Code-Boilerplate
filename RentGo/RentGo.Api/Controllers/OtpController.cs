@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.TestHelper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RentGo.Application.IService;
 using RentGo.Domain.Model;
 
@@ -8,10 +10,12 @@ namespace RentGo.Api.Controllers
     public class OtpController : ControllerBase
     {
         private readonly IOtpService _otpService;
+        private readonly IUserContext _userContext;
 
-        public OtpController(IOtpService otpService)
+        public OtpController(IOtpService otpService, IUserContext userContext)
         {
             _otpService = otpService;
+            _userContext = userContext;
         }
 
         [HttpGet("SendOtp")]
@@ -38,6 +42,14 @@ namespace RentGo.Api.Controllers
             {
                 throw;
             }
+        }
+        
+        [Authorize]
+        [HttpGet("Test")]
+        public async Task<IActionResult> Test()
+        {
+            var p = _userContext;
+            return Ok("Ok");
         }
     }
 }

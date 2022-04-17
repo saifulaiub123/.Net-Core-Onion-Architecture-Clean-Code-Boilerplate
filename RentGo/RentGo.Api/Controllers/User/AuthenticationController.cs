@@ -53,6 +53,7 @@ namespace RentGo.Api.Controllers.User
                         Id = Guid.NewGuid().ToString(),
                         SecurityStamp = Guid.NewGuid().ToString(),
                         UserName = model.MobileNumber,
+                        NormalizedUserName = null,
                         DeviceToken = model.DeviceToken,
                         Status = (int)UserStatusEnum.Active
                     };
