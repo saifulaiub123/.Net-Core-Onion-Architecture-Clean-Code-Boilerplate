@@ -6,7 +6,7 @@ namespace RentGo.Api.Dependency
     {
         public static IServiceCollection ApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<JWTExtensions>();
+            services.AddSingleton<TokenHelper>();
             return services;
         }
     }

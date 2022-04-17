@@ -6,15 +6,15 @@ using RentGo.Domain.DBModel;
 
 namespace RentGo.Api.Authentication
 {
-    public class JWTExtensions
+    public class TokenHelper
     {
         private readonly IConfiguration _configuration;
-        public JWTExtensions(IConfiguration configuration)
+        public TokenHelper(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<JwtSecurityToken> GetToken(ApplicationUser user, IList<string> userRoles)
+        public async Task<string> GetToken(ApplicationUser user, IList<string> userRoles)
         {
             var authClaims = new List<Claim>
             {
@@ -28,14 +28,14 @@ namespace RentGo.Api.Authentication
             }
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-            return await Task.Run(() => new JwtSecurityToken(
+            var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddHours(3),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            ));
+            );
+            return await Task.Run(() => new JwtSecurityTokenHandler().WriteToken(token));
 
         }
     }

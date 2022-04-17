@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
 using System.Text;
+using FluentValidation.AspNetCore;
+using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
+using RentGo.Application.Helper;
 using RentGo.Application.Settings;
 using RentGo.Domain.Constant;
 using RentGo.Domain.DBModel;
@@ -23,7 +26,11 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.  
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null)
+                .AddFluentValidation(
+                    v => v.RegisterValidatorsFromAssembly(typeof(RegisterApplication).Assembly)
+                ); ;
 
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(
@@ -35,34 +42,37 @@ namespace Api
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddServices();
             services.AddRepositories();
             services.ApplicationServices();
+            services.TokenAuthentication(Configuration);
+
             services.AddAutoMapper(typeof(ApplicationDbContext));
             // Adding Authentication  
 
-            var jwtSettings = Configuration.GetSection(ConfigOptions.JWT).Get<JWTSettings>();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+            //var jwtSettings = Configuration.GetSection(ConfigOptions.JWT).Get<JWTSettings>();
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
 
-            // Adding Jwt Bearer  
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettings.ValidAudience,
-                    ValidIssuer = jwtSettings.ValidIssuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
-                };
-            });
+            //// Adding Jwt Bearer  
+            //.AddJwtBearer(options =>
+            //{
+            //    options.SaveToken = true;
+            //    options.RequireHttpsMetadata = false;
+            //    options.TokenValidationParameters = new TokenValidationParameters()
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidAudience = jwtSettings.ValidAudience,
+            //        ValidIssuer = jwtSettings.ValidIssuer,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+            //    };
+            //});
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }

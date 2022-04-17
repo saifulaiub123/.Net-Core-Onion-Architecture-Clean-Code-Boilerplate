@@ -14,14 +14,14 @@ namespace RentGo.Api.Controllers.User
     public class AuthenticationController : ControllerBaseUser
     {
 
-        private readonly JWTExtensions _jwtExt;
+        private readonly TokenHelper _jwtExt;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IOtpService _otpService;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
-            JWTExtensions jwtExt,
+            TokenHelper jwtExt,
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager, 
             IOtpService otpService,
@@ -76,11 +76,7 @@ namespace RentGo.Api.Controllers.User
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 var token = await _jwtExt.GetToken(user, userRoles);
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                return Ok(new { token});
             }
             catch (Exception e)
             {
