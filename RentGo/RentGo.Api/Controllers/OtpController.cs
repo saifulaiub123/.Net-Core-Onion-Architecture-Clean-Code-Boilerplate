@@ -17,14 +17,27 @@ namespace RentGo.Api.Controllers
         [HttpGet("SendOtp")]
         public async Task SendOtp([FromQuery] string mobileNumber)
         {
-            await _otpService.SendOtp(mobileNumber);
-            ;
+            try
+            {
+                await _otpService.SendOtp(mobileNumber);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            
         }
         [HttpGet("VerifyOtp")]
         public async Task VerifyOtp([FromQuery] VerifyOtp verifyOtp)
         {
-            await _otpService.VerifyOtp(verifyOtp);
-            ;
+            try
+            {
+                await _otpService.VerifyOtp(verifyOtp);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }

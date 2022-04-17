@@ -49,12 +49,10 @@ namespace RentGo.Service.CoreService
                 {
                     return new OtpResponse(OtpResponseEnum.EXPIRED, Message.OTP_EXPIRED);
                 }
-
                 return otp.VerificationCode == verifyOtp.Code ? new OtpResponse(OtpResponseEnum.OK, Message.OTP_VERIFIED) : new OtpResponse(OtpResponseEnum.UNVERIFIED, Message.OTP_VERIFICATION_FAILED);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 throw;
             }
         }

@@ -6,8 +6,15 @@ namespace RentGo.Framework
     {
         public async Task<int> SendSms(string mobileNumber)
         {
-            var verificationCode = 1234;
-            return verificationCode;
+            try
+            {
+                var verificationCode = 1234;
+                return verificationCode;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }

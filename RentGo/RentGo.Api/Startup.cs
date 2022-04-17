@@ -7,6 +7,7 @@ using System.Text;
 using FluentValidation.AspNetCore;
 using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
+using RentGo.Api.Middleware;
 using RentGo.Application.Helper;
 using RentGo.Application.Settings;
 using RentGo.Domain.Constant;
@@ -88,6 +89,7 @@ namespace Api
             }
 
             app.UseRouting();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

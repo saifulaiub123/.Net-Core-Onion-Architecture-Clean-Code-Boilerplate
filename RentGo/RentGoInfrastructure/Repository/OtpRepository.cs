@@ -15,8 +15,15 @@ namespace RentGo.Infrastructure.Repository
 
         public async Task<Otp> GetLatestOtp(string mobileNumber)
         {
-            return await _context.Otps.Where(x => x.MobileNumber == mobileNumber)
-                .OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+            try
+            {
+                return await _context.Otps.Where(x => x.MobileNumber == mobileNumber)
+                    .OrderByDescending(x => x.DateCreated).FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }
