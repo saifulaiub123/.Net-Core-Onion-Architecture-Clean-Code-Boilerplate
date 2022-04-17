@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RentGo.Api.Authentication;
 using RentGo.Application.Enum;
 using RentGo.Application.IService;
 using RentGo.Application.Response;
@@ -11,17 +13,21 @@ namespace RentGo.Api.Controllers.User
 {
     public class AuthenticationController : ControllerBaseUser
     {
+
+        private readonly JWTExtensions _jwtExt;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IOtpService _otpService;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IOtpService _otpService;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
+            JWTExtensions jwtExt,
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager, 
             IOtpService otpService,
             IConfiguration configuration)
         {
+            _jwtExt = jwtExt;
             _userManager = userManager;
             _roleManager = roleManager;
             _otpService = otpService;
@@ -29,10 +35,11 @@ namespace RentGo.Api.Controllers.User
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] RegisterModel model)
+        public async Task<IActionResult> Authenticate([FromBody] RegisterModel model)
         {
             try
             {
+                var user = new ApplicationUser();
                 var otpResponse = await _otpService.VerifyOtp(new VerifyOtp(model.MobileNumber, model.Code));
 
                 if(otpResponse.Status != OtpResponseEnum.OK)
@@ -41,7 +48,7 @@ namespace RentGo.Api.Controllers.User
                 var userExists = await _userManager.FindByNameAsync(model.MobileNumber);
                 if (userExists == null)
                 {
-                    var user = new ApplicationUser()
+                    user = new ApplicationUser()
                     {
                         Id = Guid.NewGuid().ToString(),
                         SecurityStamp = Guid.NewGuid().ToString(),
@@ -61,10 +68,19 @@ namespace RentGo.Api.Controllers.User
                 }
                 else
                 {
+                    user = userExists;
                     userExists.DeviceToken = model.DeviceToken;
                     await _userManager.UpdateAsync(userExists);
                 }
-                return Ok(new Response(ResponseStatus.OK, Message.USER_REGISTRATION_SUCCESS));
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                var token = await _jwtExt.GetToken(user, userRoles);
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                });
             }
             catch (Exception e)
             {
