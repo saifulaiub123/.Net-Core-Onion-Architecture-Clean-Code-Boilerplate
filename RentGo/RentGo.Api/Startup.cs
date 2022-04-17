@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using RentGoInfrastructure.DBContext;
 using System.Text;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpOverrides;
+using Newtonsoft.Json;
 using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
 using RentGo.Api.Middleware;
@@ -28,7 +30,10 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                .AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null)
+                .AddJsonOptions(opt =>
+                {
+                    opt.JsonSerializerOptions.PropertyNamingPolicy = null;
+                })
                 .AddFluentValidation(
                     v => v.RegisterValidatorsFromAssembly(typeof(RegisterApplication).Assembly)
                 ); ;
@@ -74,6 +79,19 @@ namespace Api
             //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
             //    };
             //});
+
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
@@ -87,9 +105,16 @@ namespace Api
                 app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
-
+            if (env.IsProduction())
+            {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+            }
             app.UseRouting();
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
