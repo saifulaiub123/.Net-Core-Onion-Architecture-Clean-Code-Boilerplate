@@ -1,10 +1,22 @@
 ﻿
 
+using RentGo.Application.Enum;
+
 namespace RentGo.Application.Response
 {
     public class Response
     {
-        public string Status { get; set; }
+        public Response()
+        {
+        }
+
+        public Response(ResponseStatus status, string message)
+        {
+            Status = status;
+            Message = message;
+        }
+
+        public ResponseStatus Status { get; set; }
         public string Message { get; set; }
     }
 }

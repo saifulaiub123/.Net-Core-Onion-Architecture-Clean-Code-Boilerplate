@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RentGo.Application.Enum
+﻿namespace RentGo.Application.Enum
 {
     public enum UserStatusEnum
     {
-        Active =1,
-        Inactive,
+        Active = 1,
+        Pending = 2,
+        Inactive = 3,
+        Blocked = 4
     }
 }

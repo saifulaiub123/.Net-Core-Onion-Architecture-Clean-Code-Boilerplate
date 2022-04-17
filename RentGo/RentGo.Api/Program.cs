@@ -1,6 +1,4 @@
 using Api;
-using Microsoft.AspNetCore;
-using RentGo.Api;
 
 public class Program
 {

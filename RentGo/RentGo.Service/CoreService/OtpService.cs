@@ -1,7 +1,10 @@
-﻿using AutoMapper;
+﻿using RentGo.Application.Enum;
 using RentGo.Application.IRepository;
 using RentGo.Application.IService;
+using RentGo.Application.Response;
+using RentGo.Domain.Constant;
 using RentGo.Domain.DBModel;
+using RentGo.Domain.Model;
 
 namespace RentGo.Service.CoreService
 {
@@ -22,16 +25,36 @@ namespace RentGo.Service.CoreService
         {
             try
             {
-                var otpObj = new Otp();
-
-                otpObj.MobileNumber = mobieNumber;
-                otpObj.VerificationCode = Convert.ToString(await _smsHelper.SendSms(mobieNumber));
-                otpObj.ExpiredAt = DateTime.Now.AddMinutes(5);
+                var otpObj = new Otp
+                {
+                    MobileNumber = mobieNumber,
+                    VerificationCode = Convert.ToString(await _smsHelper.SendSms(mobieNumber)),
+                    ExpiredAt = DateTime.Now.AddMinutes(5)
+                };
                 await _otpRepository.Insert(otpObj);
                 await _otpRepository.SaveAsync();
             }
             catch (Exception e)
             {
+                throw;
+            }
+        }
+
+        public async Task<OtpResponse> VerifyOtp(VerifyOtp verifyOtp)
+        {
+            try
+            {
+                var otp = await _otpRepository.GetLatestOtp(verifyOtp.MobileNumber);
+                if (otp.ExpiredAt < DateTime.Now)
+                {
+                    return new OtpResponse(OtpResponseEnum.EXPIRED, Message.OTP_EXPIRED);
+                }
+
+                return otp.VerificationCode == verifyOtp.Code ? new OtpResponse(OtpResponseEnum.OK, Message.OTP_VERIFIED) : new OtpResponse(OtpResponseEnum.UNVERIFIED, Message.OTP_VERIFICATION_FAILED);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 throw;
             }
         }
