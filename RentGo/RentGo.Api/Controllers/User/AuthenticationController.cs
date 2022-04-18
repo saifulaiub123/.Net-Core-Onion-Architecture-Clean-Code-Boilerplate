@@ -15,14 +15,14 @@ namespace RentGo.Api.Controllers.User
 
         private readonly TokenHelper _jwtExt;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<UserRole> _roleManager;
         private readonly IOtpService _otpService;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
             TokenHelper jwtExt,
             UserManager<ApplicationUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
+            RoleManager<UserRole> roleManager, 
             IOtpService otpService,
             IConfiguration configuration)
         {
@@ -49,7 +49,6 @@ namespace RentGo.Api.Controllers.User
                 {
                     user = new ApplicationUser()
                     {
-                        Id = Guid.NewGuid().ToString(),
                         SecurityStamp = Guid.NewGuid().ToString(),
                         UserName = model.MobileNumber,
                         NormalizedUserName = null,

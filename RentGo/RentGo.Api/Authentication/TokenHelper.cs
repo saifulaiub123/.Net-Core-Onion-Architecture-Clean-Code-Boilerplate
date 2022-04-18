@@ -19,7 +19,7 @@ namespace RentGo.Api.Authentication
         {
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimConstant.Id, user.Id),
+                new Claim(ClaimConstant.Id, user.Id.ToString()),
                 new Claim(ClaimConstant.UserName, user.UserName),
                 new Claim(ClaimConstant.Name, user.NormalizedUserName ?? ""),
                 new Claim(ClaimConstant.Email, user.Email ?? ""),

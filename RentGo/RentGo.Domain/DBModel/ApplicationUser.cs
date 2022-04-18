@@ -2,7 +2,7 @@
 
 namespace RentGo.Domain.DBModel
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<int>
     {
         public int Status { get; set; }
         public string DeviceToken { get; set; }
