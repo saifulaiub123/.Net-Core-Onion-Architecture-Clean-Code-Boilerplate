@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentGo.Application.IService;
 using RentGo.Domain.Model;
+using Serilog;
 
 namespace RentGo.Api.Controllers
 {
@@ -35,6 +36,7 @@ namespace RentGo.Api.Controllers
         {
             try
             {
+                Log.Information("Perfect");
                 await _otpService.VerifyOtp(verifyOtp);
             }
             catch (Exception e)
