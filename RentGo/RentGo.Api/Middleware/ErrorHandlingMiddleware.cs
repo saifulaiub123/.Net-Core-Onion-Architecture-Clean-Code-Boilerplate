@@ -1,21 +1,20 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
 using RentGo.Application.Exception;
+using Serilog;
 
 namespace RentGo.Api.Middleware
 {
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
-        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
+        public ErrorHandlingMiddleware(RequestDelegate next)
         {
             this._next = next;
-            _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context /* other dependencies */)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
@@ -24,7 +23,7 @@ namespace RentGo.Api.Middleware
             catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex);
-                _logger.LogError(ex, "Error");
+                Log.Error($"Error - {ex}");
             }
         }
 
