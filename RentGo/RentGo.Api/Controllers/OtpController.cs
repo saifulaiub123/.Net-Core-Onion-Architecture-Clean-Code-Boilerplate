@@ -1,5 +1,4 @@
-﻿using FluentValidation.TestHelper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentGo.Application.IService;
 using RentGo.Domain.Model;
@@ -43,11 +42,12 @@ namespace RentGo.Api.Controllers
                 throw;
             }
         }
-        
-        [Authorize]
+
+        [Authorize(Roles = "User")]
         [HttpGet("Test")]
         public async Task<IActionResult> Test()
         {
+            
             var p = _userContext;
             return Ok("Ok");
         }
