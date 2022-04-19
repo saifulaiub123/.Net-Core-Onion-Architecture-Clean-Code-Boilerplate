@@ -3,7 +3,7 @@ using RentGo.Application.IService;
 
 namespace RentGo.Api.Dependency
 {
-    public static class applicationResolutionConfiguration
+    public static class ApplicationResolutionConfiguration
     {
         public static IServiceCollection ApplicationServices(this IServiceCollection services)
         {
