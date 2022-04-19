@@ -21,7 +21,7 @@
 <li>To test Authorization call "Test" api.
 
 <h2>Technologies implemented:</h2>
-<li>.Nett 6</li>
+<li>.Net 6</li>
 <li>Entityframework core 6(Code first)</li>
 <li>.Net core Identity for authentication and authorization</li>
 <li>Customise Identity model</li>
