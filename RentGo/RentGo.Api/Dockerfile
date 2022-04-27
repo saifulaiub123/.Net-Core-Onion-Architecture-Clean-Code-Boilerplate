@@ -1,0 +1,27 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["RentGo.Api/RentGo.Api.csproj", "RentGo.Api/"]
+COPY ["RentGoInfrastructure/RentGo.Infrastructure.csproj", "RentGoInfrastructure/"]
+COPY ["RentGo.Domain/RentGo.Domain.csproj", "RentGo.Domain/"]
+COPY ["RentGo.Application/RentGo.Application.csproj", "RentGo.Application/"]
+COPY ["Framework/RentGo.Framework.csproj", "Framework/"]
+COPY ["RentGo.Service/RentGo.Service.csproj", "RentGo.Service/"]
+RUN dotnet restore "RentGo.Api/RentGo.Api.csproj"
+COPY . .
+WORKDIR "/src/RentGo.Api"
+RUN dotnet build "RentGo.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "RentGo.Api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "RentGo.Api.dll"]

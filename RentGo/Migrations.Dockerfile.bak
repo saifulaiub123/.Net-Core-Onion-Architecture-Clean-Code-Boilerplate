@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine as build
+WORKDIR /src
+
+COPY . .
+COPY Setup.sh Setup.sh
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+RUN dotnet restore
+
+COPY . .
+WORKDIR "/src/."
+
+RUN dotnet ef -p "RentGo/RentGoInfrastructure/RentGo.Infrastructure.csproj" database update
+
+RUN chmod +x ./Setup.sh
+CMD /bin/bash ./Setup.sh

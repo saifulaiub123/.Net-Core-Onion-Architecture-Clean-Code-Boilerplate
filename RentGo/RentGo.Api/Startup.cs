@@ -93,8 +93,6 @@ namespace Api
         {
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
             if (env.IsProduction())
@@ -104,6 +102,8 @@ namespace Api
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
             }
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseRouting();
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseCors();

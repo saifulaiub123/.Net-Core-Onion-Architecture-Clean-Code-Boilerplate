@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Application", "RentG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Domain", "RentGo.Domain\RentGo.Domain.csproj", "{2D411320-9726-46F0-A785-C73AFC2626DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentGo.Service", "RentGo.Service\RentGo.Service.csproj", "{E40BCB73-D789-40B2-BD28-DB8C309FEA63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Service", "RentGo.Service\RentGo.Service.csproj", "{E40BCB73-D789-40B2-BD28-DB8C309FEA63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentGo.Framework", "Framework\RentGo.Framework.csproj", "{85D376FD-A16B-4299-8BF9-17309BE9D825}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentGo.Framework", "Framework\RentGo.Framework.csproj", "{85D376FD-A16B-4299-8BF9-17309BE9D825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
