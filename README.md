@@ -1,6 +1,6 @@
 <h2>.Net core onion architecture boilerplate</h2>
 
-<h4># Rent2Go is mobile number authentication based .net core prject where onion architecture has been used.You can start your api integration from the first day witout spending time on creating skeleton of the project.</h4>
+<h4># RentGo is mobile number authentication based .net core prject where onion architecture has been used.You can start your api integration from the first day witout spending time on creating skeleton of the project.</h4>
 
 ![onion_architecture](https://user-images.githubusercontent.com/10800787/163911867-59d311b7-e53e-49c4-9ccf-442060e950a2.jpeg)
 
@@ -21,7 +21,7 @@
 <li>To test Authorization call "Test" api.
 
 <h2>Technologies implemented:</h2>
-<li>.Nett 6</li>
+<li>.Net 6</li>
 <li>Entityframework core 6(Code first)</li>
 <li>.Net core Identity for authentication and authorization</li>
 <li>Customise Identity model</li>
