@@ -34,3 +34,10 @@
 <li>Used Custom MIddleware</li>
 <li>Global Error Handling</li>
 <li>Serilog for application logging in DB</li>
+
+<h2>Docker</h2>
+<li>go to <br>RentGo</b> folder</li>
+<li>open cmd</li>
+<li>run command <b>docker compose build</b></li>
+<li>after building run command <b>docker compose up</b></li>
+<li>browse <b>http://localhost:8002/swagger/index.html</b> for api</li>
