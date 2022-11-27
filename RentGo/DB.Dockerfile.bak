@@ -1,5 +1,5 @@
 # We choose exact tag (not 'latest'), to be sure that new version wont break creating image
-#FROM mcr.microsoft.com/mssql/server:2019-latest
+FROM mcr.microsoft.com/mssql/server:2019-latest
 
 # Create app directory
 USER root
@@ -13,7 +13,9 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 # Grant permissions for the run-initialization script to be executable
-RUN chmod +x /usr/src/app/run-initialization.sh
+sudo apt-get install dos2unix
+dos2unix /usr/src/app/run-initialization.sh
+#RUN chmod +x /usr/src/app/run-initialization.sh
 #RUN chmod +x /app/run-initialization.sh
 
 # Set environment variables, not to have to write them with docker run command

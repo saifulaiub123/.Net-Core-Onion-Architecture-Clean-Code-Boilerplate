@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentGo.Application.IRepository;
 using RentGo.Domain.DBModel;
+using RentGo.Domain.IRepository;
 using RentGoInfrastructure.DBContext;
 
 namespace RentGo.Infrastructure.Repository

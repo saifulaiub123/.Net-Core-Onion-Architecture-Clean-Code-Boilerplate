@@ -1,24 +1,19 @@
 ﻿using RentGo.Application.Enum;
-using RentGo.Application.IRepository;
 using RentGo.Application.IService;
 using RentGo.Application.Response;
 using RentGo.Domain.Constant;
 using RentGo.Domain.DBModel;
+using RentGo.Domain.IRepository;
 using RentGo.Domain.Model;
 
-namespace RentGo.Service.CoreService
+namespace RentGo.Application.Service
 {
     public class OtpService : IOtpService
     {
-        private readonly ISmsHelper _smsHelper;
         private readonly IOtpRepository _otpRepository;
 
-        public OtpService(
-        ISmsHelper smsHelper,
-        IOtpRepository otpRepository
-        )
+        public OtpService(IOtpRepository otpRepository)
         {
-            _smsHelper  = smsHelper;
             _otpRepository = otpRepository;
         }
         public async Task SendOtp(string mobieNumber)
@@ -28,13 +23,13 @@ namespace RentGo.Service.CoreService
                 var otpObj = new Otp
                 {
                     MobileNumber = mobieNumber,
-                    VerificationCode = Convert.ToString(await _smsHelper.SendSms(mobieNumber)),
+                    VerificationCode = "",
                     ExpiredAt = DateTime.Now.AddMinutes(10)
                 };
                 await _otpRepository.Insert(otpObj);
                 await _otpRepository.SaveAsync();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 throw;
             }
@@ -51,7 +46,7 @@ namespace RentGo.Service.CoreService
                 }
                 return otp.VerificationCode == verifyOtp.Code ? new OtpResponse(OtpResponseEnum.OK, Message.OTP_VERIFIED) : new OtpResponse(OtpResponseEnum.UNVERIFIED, Message.OTP_VERIFICATION_FAILED);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 throw;
             }

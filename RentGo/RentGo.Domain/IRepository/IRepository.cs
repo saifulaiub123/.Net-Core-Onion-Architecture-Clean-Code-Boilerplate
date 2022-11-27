@@ -1,9 +1,7 @@
-﻿
-
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using RentGo.Domain.Model;
 
-namespace RentGo.Application.IRepository
+namespace RentGo.Domain.IRepository
 {
     public interface IRepository<TModel, TId> where TModel : BaseModel<TId>
     {
@@ -35,7 +33,7 @@ namespace RentGo.Application.IRepository
         Task Delete(TModel id);
         Task DeleteRange(IEnumerable<TModel> entities);
 
-        Task<TModel> GetByIdThrowIfNotFound(TId id);
+        //Task<TModel> GetByIdThrowIfNotFound(TId id);
         Task<int> Count(Expression<Func<TModel, bool>> filter);
         Task SaveAsync();
     }

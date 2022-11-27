@@ -1,6 +1,6 @@
 ﻿using RentGo.Domain.DBModel;
 
-namespace RentGo.Application.IRepository
+namespace RentGo.Domain.IRepository
 {
     public interface IOtpRepository : IRepository<Otp, int>
     {

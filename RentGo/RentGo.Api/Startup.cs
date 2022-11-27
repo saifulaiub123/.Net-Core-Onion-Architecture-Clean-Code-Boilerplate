@@ -7,9 +7,11 @@ using Microsoft.OpenApi.Models;
 using RentGo.Api.Authentication;
 using RentGo.Api.Dependency;
 using RentGo.Api.Middleware;
+using RentGo.Application.Dependency;
 using RentGo.Application.Helper;
 using RentGo.Domain.Constant;
 using RentGo.Domain.DBModel;
+using RentGo.Infrastructure.Dependency;
 
 namespace Api
 {
@@ -56,7 +58,7 @@ namespace Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost")
+                        builder.WithOrigins("http://localhost:4200")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();

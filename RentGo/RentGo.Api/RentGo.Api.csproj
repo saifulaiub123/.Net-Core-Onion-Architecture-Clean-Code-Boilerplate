@@ -30,10 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework\RentGo.Framework.csproj" />
     <ProjectReference Include="..\RentGo.Application\RentGo.Application.csproj" />
-    <ProjectReference Include="..\RentGo.Domain\RentGo.Domain.csproj" />
-    <ProjectReference Include="..\RentGo.Service\RentGo.Service.csproj" />
     <ProjectReference Include="..\RentGoInfrastructure\RentGo.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RentGo.Application.Exception;
-using RentGo.Application.IRepository;
 using RentGo.Domain.Constant;
+using RentGo.Domain.IRepository;
 using RentGo.Domain.Model;
 using RentGoInfrastructure.DBContext;
 
@@ -141,13 +140,13 @@ namespace RentGo.Infrastructure.Repository
             DbSet.RemoveRange(entities);
         }
 
-        public async Task<TModel> GetByIdThrowIfNotFound(TId id)
-        {
-            var existing = await GetById(id);
-            if (existing == null)
-                throw new RecordNotFound(Message.RecordNotFound);
-            return existing;
-        }
+        //public async Task<TModel> GetByIdThrowIfNotFound(TId id)
+        //{
+        //    var existing = await GetById(id);
+        //    if (existing == null)
+        //        throw new RecordNotFound(Message.RecordNotFound);
+        //    return existing;
+        //}
 
         public async Task<int> Count(Expression<Func<TModel, bool>> filter)
         {

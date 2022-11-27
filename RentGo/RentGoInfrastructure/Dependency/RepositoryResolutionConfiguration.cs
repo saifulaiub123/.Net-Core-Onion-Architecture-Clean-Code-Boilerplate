@@ -1,7 +1,8 @@
-﻿using RentGo.Application.IRepository;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RentGo.Domain.IRepository;
 using RentGo.Infrastructure.Repository;
 
-namespace RentGo.Api.Dependency
+namespace RentGo.Infrastructure.Dependency
 {
     public static class RepositoryResolutionConfiguration
     {
